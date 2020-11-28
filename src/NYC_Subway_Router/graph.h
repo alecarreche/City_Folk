@@ -9,6 +9,7 @@ class Graph {
 
 public:
     struct Station {
+        string name;
         double latitude;
         double longitude;
     };
@@ -17,8 +18,8 @@ public:
     void importEdges(string fileName);
 
 private:
-    map<string, Station> stationID;
-    map<string, vector<pair<string, pair<char, double>>>> adjList;
+    map<int, Station> stationID;
+    map<int, vector<pair<int, pair<string, double>>>> adjList;
 };
 
 void Graph::importStations(string fileName) {
@@ -39,9 +40,13 @@ void Graph::importStations(string fileName) {
         // skip index col
         getline(row, cell, ',');
 
+        // Stop ID
+        getline(row, cell, ',');
+        int ID = stoi(cell);
+
         // Stop Name
         getline(row, cell, ',');
-        string stopName = cell;
+        curStation.name = cell;
 
         // Lat
         getline(row, cell, ',');
@@ -51,7 +56,7 @@ void Graph::importStations(string fileName) {
         getline(row, cell, ',');
         curStation.longitude = stod(cell);
 
-        stationID.emplace(stopName, curStation);
+        stationID.emplace(ID, curStation);
     }
 }
 
@@ -74,23 +79,23 @@ void Graph::importEdges(string fileName) {
 
         // Route
         getline(row, cell, ',');
-        char route = cell[0];
+        string route = cell;
 
         // To
         getline(row, cell, ',');
-        string to = cell;
+        int to = stoi(cell);
 
         // From
         getline(row, cell, ',');
-        string from = cell;
+        int from = stoi(cell);
 
         // Dist
         getline(row, cell, ',');
         double distance = stod(cell);
 
         // "to" direction
-        pair<char, double> routeDist = make_pair(route, distance);
-        pair<string, pair<char, double>> edge = make_pair(to, routeDist);
+        pair<string, double> routeDist = make_pair(route, distance);
+        pair<int, pair<string, double>> edge = make_pair(to, routeDist);
 
         if(adjList.find(from) == adjList.end()) {
             adjList[from] = {edge};
@@ -99,7 +104,7 @@ void Graph::importEdges(string fileName) {
         }
 
         // "from" direction
-        pair<string, pair<char, double>> reverseEdge = make_pair(from, routeDist);
+        pair<int, pair<string, double>> reverseEdge = make_pair(from, routeDist);
 
         if(adjList.find(to) == adjList.end()) {
             adjList[to] = {reverseEdge};
