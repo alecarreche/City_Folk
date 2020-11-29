@@ -18,8 +18,17 @@ public:
 
     void importStations(string fileName);
     void importEdges(string fileName);
+    int findClosestStation(pair<double, double> loc);
 
 private:
     map<int, Station> stationID;
     map<int, vector<pair<int, pair<string, double>>>> adjList;
+    // first -> int: "from" ID
+    // second -> vector
+    //           pair<int, pair>
+    //                "to" ID
+    //                      pair<string, double>
+    //                           string = Route Identifier
+    //                           double = distance (weight)
+
 };

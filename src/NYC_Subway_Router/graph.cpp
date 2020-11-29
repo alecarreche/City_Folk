@@ -93,3 +93,8 @@ void Graph::importEdges(string fileName) {
     }
 
 }
+
+int Graph::findClosestStation(pair<double, double> loc) {
+
+    return 0;
+}
