@@ -5,6 +5,8 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <unordered_set>
+#include <stack>
 using namespace std;
 
 class Graph {
@@ -19,6 +21,7 @@ public:
     void importStations(string fileName);
     void importEdges(string fileName);
     int findClosestStation(pair<double, double> loc);
+    vector<int> dijkstra(int src, int dest);
 
 private:
     map<int, Station> stationID;

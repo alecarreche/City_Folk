@@ -98,3 +98,87 @@ int Graph::findClosestStation(pair<double, double> loc) {
 
     return 0;
 }
+
+vector<int> Graph::dijkstra(int src, int dest)
+{
+    map<int, pair<int, double>> m;
+    unordered_set<int> v;
+    unordered_set<int> nv;
+    for (auto iter = adjList.begin(); iter != adjList.end(); iter++)
+    {
+        nv.insert(iter->first);
+    }
+    if (!nv[src])
+    {
+        cout << "ERROR: Source vertex does not exist!" << endl;
+    }
+    else if (!nv[dest])
+    {
+        cout << "ERROR: Destination vertex does not exist!" << endl;
+    }
+    else
+    {
+        int temp = src;
+        double tempd = 0;
+        int newid = 0;
+        double newweight = 0;
+        m[temp] = pair<-1, tempd>;
+        while (!nv.empty() && newweight != -1)
+        {
+            nv.erase(temp);
+            v.insert(temp);
+            for (int i = 0; i < adjList[temp].size(); i++)
+            {
+                newid = adjList[temp][i].first;
+                newweight = adjList[temp][i].second.second;
+                if (m.find(newid) == m.end()) 
+                    //if there is no old weight, insert newweight plus current node's weight
+                {
+                    double tempd2 = m[temp].second + newweight;
+                    m[newid] = pair<temp, tempd2>;
+                }
+                else if (m[newid].second > (newweight + tempd)) 
+                    //if old weight is greater than newweight plus current node's weight, change the old weight to the new, shorter one
+                {
+                    double tempd2 = newweight + tempd;
+                    m[newid] = pair<temp, tempd2>;
+                }
+                    //in every other case, move on to the next one
+            }
+            newweight = -1;
+            for (auto iter = nv.begin(); iter != nv.end(); iter++)
+                //go through the unvisited nodes
+            {
+                if (m.find((iter*)) != m.end())
+                    //if a node has not been visited but has a weight
+                {
+                    if (newweight > m[iter*].second || newweight == -1)
+                        //and if its weight is less than our previously found node or is the first one we've found, replace it with the new one
+                    {
+                        newid = iter*;
+                        newweight = m[iter*].second;
+                    }
+                }
+            }
+            temp = newid;
+            tempd = m[newid].second;
+        }
+        vector<int> v;
+        stack<int> s;
+        temp = dest;
+        while (temp != src)
+        {
+            s.push(temp);
+            temp = m[temp].first;
+        }
+        s.push(temp);
+        while (!s.empty())
+        {
+            v.push_back(s.top());
+            s.pop();
+        }
+        return v;
+    }
+    vector<int> v2;
+    return v2;
+}
