@@ -22,6 +22,8 @@ public:
     void importEdges(string fileName);
     int findClosestStation(pair<double, double> loc);
     vector<int> dijkstra(int src, int dest);
+    double distance(int src, int dest);
+    vector<int> aStar(int stc, int dest);
 
 private:
     map<int, Station> stationID;
