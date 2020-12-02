@@ -122,7 +122,7 @@ vector<int> Graph::dijkstra(int src, int dest)
         double tempd = 0;
         int newid = 0;
         double newweight = 0;
-        m[temp] = pair<-1, tempd>;
+        m[temp] = make_pair(-1, tempd);
         while (!nv.empty() && newweight != -1)
         {
             nv.erase(temp);
@@ -135,13 +135,13 @@ vector<int> Graph::dijkstra(int src, int dest)
                     //if there is no old weight, insert newweight plus current node's weight
                 {
                     double tempd2 = m[temp].second + newweight;
-                    m[newid] = pair<temp, tempd2>;
+                    m[newid] = make_pair(temp, tempd2);
                 }
-                else if (m[newid].second > (newweight + tempd)) 
-                    //if old weight is greater than newweight plus current node's weight, change the old weight to the new, shorter one
+                else if ((newweight + tempd) < m[newid].second) 
+                    //if newweight plus current node's weight is less than the old weight, change the old weight to the new, shorter one
                 {
                     double tempd2 = newweight + tempd;
-                    m[newid] = pair<temp, tempd2>;
+                    m[newid] = make_pair(temp, tempd2);
                 }
                     //in every other case, move on to the next one
             }
@@ -163,7 +163,7 @@ vector<int> Graph::dijkstra(int src, int dest)
             temp = newid;
             tempd = m[newid].second;
         }
-        vector<int> v;
+        vector<int> vec;
         stack<int> s;
         temp = dest;
         while (temp != src)
@@ -174,10 +174,10 @@ vector<int> Graph::dijkstra(int src, int dest)
         s.push(temp);
         while (!s.empty())
         {
-            v.push_back(s.top());
+            vec.push_back(s.top());
             s.pop();
         }
-        return v;
+        return vec;
     }
     vector<int> v2;
     return v2;
@@ -198,17 +198,20 @@ double Graph::distance(int src, int dest)
 
 vector<int> Graph::aStar(int src, int dest)
 {
-    //literally copy/pasted the other one and then i'm gonna edit it so ignore the below
+    map<int, pair<double, pair<double, pair<double, int>>>> m;
 
+    //m[ID]
+    //m[ID].first = F
+    //m[ID].second.first = G
+    //m[ID].second.second.first = H
+    //m[ID].second.second.second = ID of previous
 
-    map<int, pair<int, double>> m;
     unordered_set<int> v;
+    //set of visited nodes
 
+    unordered_set<int> nv;
+    //set of unvisited neighbors
 
-    for (auto iter = adjList.begin(); iter != adjList.end(); iter++)
-    {
-        nv.insert(iter->first);
-    }
     if (!nv[src])
     {
         cout << "ERROR: Source vertex does not exist!" << endl;
@@ -219,66 +222,78 @@ vector<int> Graph::aStar(int src, int dest)
     }
     else
     {
-        int temp = src;
-        double tempd = 0;
+        int currentid = src;
         int newid = 0;
-        double newweight = 0;
-        m[temp] = pair<-1, tempd>;
-        while (!nv.empty() && newweight != -1)
+        double newweight;
+        nv.insert(currentid);
+        m[currentid] = make_pair(0, make_pair(0, make_pair(0, -1)));
+        while (!v.empty() && currentid != -1)
         {
-            nv.erase(temp);
-            v.insert(temp);
-            for (int i = 0; i < adjList[temp].size(); i++)
+            nv.erase(currentid);
+            v.insert(currentid);
+            for (int i = 0; i < adjList[currentid].size(); i++)
             {
-                newid = adjList[temp][i].first;
-                newweight = adjList[temp][i].second.second;
-                if (m.find(newid) == m.end())
-                    //if there is no old weight, insert newweight plus current node's weight
+                newid = adjList[currentid][i].first;
+                newweight = adjList[currentid][i].second.second;
+                if (v.find(adjList[currentid][i].first) == v.end())
+                    //if the node has not been visited already
                 {
-                    double tempd2 = m[temp].second + newweight;
-                    m[newid] = pair<temp, tempd2>;
+                    if (m.find(newid) == m.end())
+                        //and if the new node does not exist, add it to the map and the unvisited set
+                    {
+                        double tempg = m[currentid].second.first + newweight;
+                        double tempf = tempg + distance(newid, dest);
+                        m[newid] = make_pair(tempf, make_pair(tempg, make_pair(distance(newid, dest), currentid)));
+                        nv.insert(newid);
+                    }
+                    else if ((newweight + m[currentid].second.first) < m[newid].second.first)
+                        //and if newweight plus current node's weight is less than old weight, change the old weight to the new, shorter one
+                    {
+                        double tempg = m[currentid].second.first + newweight;
+                        double tempf = tempg + distance(newid, dest);
+                        m[newid] = make_pair(tempf, make_pair(tempg, make_pair(distance(newid, dest), currentid)));
+                    }
                 }
-                else if (m[newid].second > (newweight + tempd))
-                    //if old weight is greater than newweight plus current node's weight, change the old weight to the new, shorter one
+                else if ((newweight + m[currentid].second.first) < m[newid].second.first)
+                    //if the node has been visited but the newweight plus current node's weight is less than old weight, change the old weight to the new, shorter one
                 {
-                    double tempd2 = newweight + tempd;
-                    m[newid] = pair<temp, tempd2>;
+                    double tempg = m[currentid].second.first + newweight;
+                    double tempf = tempg + distance(newid, dest);
+                    m[newid] = make_pair(tempf, make_pair(tempg, make_pair(distance(newid, dest), currentid)));
                 }
-                //in every other case, move on to the next one
             }
             newweight = -1;
             for (auto iter = nv.begin(); iter != nv.end(); iter++)
                 //go through the unvisited nodes
             {
                 if (m.find((iter*)) != m.end())
-                    //if a node has not been visited but has a weight
+                    //if a node has not been visited but has an F
                 {
-                    if (newweight > m[iter*].second || newweight == -1)
-                        //and if its weight is less than our previously found node or is the first one we've found, replace it with the new one
+                    if (newweight > m[iter*].first || newweight == -1)
+                        //and if its F is less than our previously found node or is the first one we've found, replace it with the new one
                     {
                         newid = iter*;
-                        newweight = m[iter*].second;
+                        newweight = m[iter*].first;
                     }
                 }
             }
-            temp = newid;
-            tempd = m[newid].second;
+            currentid = newid;
         }
-        vector<int> v;
+        vector<int> vec;
         stack<int> s;
-        temp = dest;
-        while (temp != src)
+        currentid = dest;
+        while (currentid != src)
         {
-            s.push(temp);
-            temp = m[temp].first;
+            s.push(currentid);
+            currentid = m[currentid].second.second.second;
         }
-        s.push(temp);
+        s.push(currentid);
         while (!s.empty())
         {
-            v.push_back(s.top());
+            vec.push_back(s.top());
             s.pop();
         }
-        return v;
+        return vec;
     }
     vector<int> v2;
     return v2;
