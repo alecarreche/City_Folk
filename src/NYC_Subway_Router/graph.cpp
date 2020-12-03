@@ -95,8 +95,20 @@ void Graph::importEdges(string fileName) {
 }
 
 int Graph::findClosestStation(pair<double, double> loc) {
+    double min = INT_MAX;
+    int minInd;
 
-    return 0;
+    for (auto iter = stationID.begin(); iter != stationID.end(); iter++){
+        Station temp = iter->second;
+        double dist = sqrt(((temp.latitude - loc.first)*(temp.latitude - loc.first)) + ((temp.longitude - loc.second)*(temp.longitude - loc.second)));
+
+        if (dist <= min){
+            minInd = iter->first;
+            min = dist;
+        }
+    }
+
+    return minInd;
 }
 
 vector<int> Graph::dijkstra(int src, int dest)
