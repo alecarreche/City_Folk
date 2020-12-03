@@ -1,5 +1,9 @@
 #include "graph.h"
 
+string Graph::getStationName(int id) {
+    return stationID[id].name;
+}
+
 void Graph::importStations(string fileName) {
     ifstream stations;
     stations.open(fileName);
@@ -95,6 +99,20 @@ void Graph::importEdges(string fileName) {
 }
 
 int Graph::findClosestStation(pair<double, double> loc) {
+    double result = -1;
+    double dist = -1;
 
-    return 0;
+    for (auto iter = stationID.begin(); iter != stationID.end(); iter++) {
+        double lat = iter->second.latitude;
+        double longit = iter->second.longitude;
+
+        double curDist = sqrt(pow(lat-loc.first, 2.0) + pow(longit-loc.second, 2.0));
+        
+        if (result == -1 || curDist < dist) {
+            result = iter->first;
+            dist = curDist;
+        }
+    }
+
+    return result;
 }

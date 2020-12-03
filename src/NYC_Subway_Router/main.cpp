@@ -13,6 +13,10 @@ int main() {
     g.importStations("data/station_data.csv");
     g.importEdges("data/edges.csv");
 
+    pair<double, double> test = make_pair(40.748817, -73.985428);
+    int closest = g.findClosestStation(test);
+    cout << g.getStationName(closest);
+
     return 0;
 }
 

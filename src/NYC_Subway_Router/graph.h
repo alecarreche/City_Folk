@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <cmath>
 using namespace std;
 
 class Graph {
@@ -19,6 +20,7 @@ public:
     void importStations(string fileName);
     void importEdges(string fileName);
     int findClosestStation(pair<double, double> loc);
+    string getStationName(int id);
 
 private:
     map<int, Station> stationID;
