@@ -100,7 +100,7 @@ int Graph::findClosestStation(pair<double, double> loc) {
 
     for (auto iter = stationID.begin(); iter != stationID.end(); iter++){
         Station temp = iter->second;
-        double dist = (((temp.latitude - loc.first)*(temp.latitude - loc.first)) + ((temp.longitude - loc.second)*(temp.longitude - loc.second)));
+        double dist = sqrt(((temp.latitude - loc.first)*(temp.latitude - loc.first)) + ((temp.longitude - loc.second)*(temp.longitude - loc.second)));
 
         if (dist <= min){
             minInd = iter->first;
