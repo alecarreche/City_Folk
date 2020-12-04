@@ -297,7 +297,7 @@ vector<int> Graph::aStar(int src, int dest)
     return vec;
 }
 
-vector<string> getStationNameVector(vector<int> vi)
+vector<string> Graph::getStationNameVector(vector<int> vi)
 {
     vector<string> vs;
     for (unsigned int i = 0; i < vi.size(); i++)
@@ -307,7 +307,7 @@ vector<string> getStationNameVector(vector<int> vi)
     return vs;
 }
 
-string convertVectorToString(vector<string> vs)
+string Graph::convertVectorToString(vector<string> vs)
 {
     string s = "";
     for (unsigned int i = 0; i < vs.size() - 1; i++)
@@ -315,11 +315,11 @@ string convertVectorToString(vector<string> vs)
         s += vs[i];
         s += " -> ";
     }
-    s += vs[cs.size() - 1];
+    s += vs[vs.size() - 1];
     return s;
 }
 
-string findSwitches(vector<int> vi)
+string Graph::findSwitches(vector<int> vi)
 {
 
 
