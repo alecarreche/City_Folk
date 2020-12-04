@@ -5,7 +5,7 @@ void Graph::importStations(string fileName) {
     stations.open(fileName);
 
     string curRow;
-    
+
     // skip header row
     getline(stations, curRow);
 
@@ -14,7 +14,7 @@ void Graph::importStations(string fileName) {
         Station curStation;
         string cell;
         stringstream row(curRow);
-        
+
         // skip index col
         getline(row, cell, ',');
 
@@ -46,13 +46,13 @@ void Graph::importEdges(string fileName) {
 
     // skip header row
     getline(edges, curRow);
-    
+
     while(getline(edges, curRow)) {
 
         string cell;
         stringstream row(curRow);
 
-        // skip index col 
+        // skip index col
         getline(row, cell, ',');
 
         // Route
@@ -135,6 +135,7 @@ vector<int> Graph::dijkstra(int src, int dest)
         {
             nv.erase(temp);
             v.insert(temp);
+
             for (int i = 0; i < adjList[temp].size(); i++)
             {
                 newid = adjList[temp][i].first;
@@ -224,7 +225,7 @@ vector<int> Graph::aStar(int src, int dest)
     double newweight;
     nv.insert(currentid);
     m[currentid] = make_pair(0, make_pair(0, make_pair(0, -1)));
-    while (!v.empty() && currentid != -1)
+    while (!nv.empty() && currentid != -1)
     {
         nv.erase(currentid);
         v.insert(currentid);
@@ -292,3 +293,4 @@ vector<int> Graph::aStar(int src, int dest)
     }
     return vec;
 }
+
