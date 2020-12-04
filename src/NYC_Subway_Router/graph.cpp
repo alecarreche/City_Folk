@@ -228,7 +228,7 @@ vector<int> Graph::aStar(int src, int dest)
     double newweight;
     nv.insert(currentid);
     m[currentid] = make_pair(0, make_pair(0, make_pair(0, -1)));
-    while (!nv.empty() && currentid != -1)
+    while (!nv.empty() && currentid != -1 && v.find(dest) == v.end())
     {
         nv.erase(currentid);
         v.insert(currentid);
@@ -297,3 +297,30 @@ vector<int> Graph::aStar(int src, int dest)
     return vec;
 }
 
+vector<string> getStationNameVector(vector<int> vi)
+{
+    vector<string> vs;
+    for (unsigned int i = 0; i < vi.size(); i++)
+    {
+        vs.push_back(getStationName(vi[i]));
+    }
+    return vs;
+}
+
+string convertVectorToString(vector<string> vs)
+{
+    string s = "";
+    for (unsigned int i = 0; i < vs.size() - 1; i++)
+    {
+        s += vs[i];
+        s += " -> ";
+    }
+    s += vs[cs.size() - 1];
+    return s;
+}
+
+string findSwitches(vector<int> vi)
+{
+
+
+}
