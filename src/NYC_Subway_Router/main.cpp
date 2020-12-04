@@ -1,40 +1,13 @@
-
-#include <fstream>
-#include "graph.cpp"
-#include <random>
 #include <iostream>
-#include <iomanip>
+#include "MainProgram.h"
 using namespace std;
 
-vector<pair<double, double>> generateRandomLoc(int n);
+int main(int argc, char **argv){
+    QApplication app (argc, argv);
+    MainProgram win;
+    win.subway.importStations("/Users/annahampton/Documents/COP3530/City_Folk/data/station_data.csv");
+    win.subway.importEdges("/Users/annahampton/Documents/COP3530/City_Folk/data/edges.csv");
 
-int main() {
-    Graph g;
-    g.importStations("data/station_data.csv");
-    g.importEdges("data/edges.csv");
-
-    pair<double, double> test = make_pair(40.748817, -73.985428);
-    int closest = g.findClosestStation(test);
-    cout << g.getStationName(closest);
-
-    return 0;
-}
-
-vector<pair<double, double>> generateRandomLoc(int n, double lowerLat, double upperLat, 
-                                                double lowerLong, double upperLong) {
-
-    vector<pair<double, double>> result;
-    uniform_real_distribution<double> LatUnif(lowerLat, upperLat);
-    uniform_real_distribution<double> LongUnif(lowerLong, upperLong);
-    default_random_engine r;
-
-    for (int i = 0; i < n; i++) {
-        double lat = LatUnif(r);
-        double longit = LongUnif(r);
-
-        result.push_back(make_pair(lat, longit));
-    }
-
-    return result;
-
+    win.show();
+    return app.exec();
 }

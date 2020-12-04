@@ -1,31 +1,41 @@
 #pragma once
-#include <QApplication>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QMainWindow>
-#include <QInputDialog>
-#include <QCloseEvent>
-#include <QStyle>
-#include <QDesktopWidget>
-#include <QBoxLayout>
-#include <QLabel>
-#include <iomanip>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <map>
+#include <cmath>
+#include <unordered_set>
+#include <stack>
 #include <random>
-#include <QPalette>
-#include <QColor>
 using namespace std;
 
-class MainProgram : public QMainWindow {
-    Q_OBJECT
+class Graph {
 
 public:
-    explicit MainProgram(QWidget *parent = nullptr);
-    double startlong, startlat, destlong, destlat;
-    vector<pair<double, double>> randlonglats;
-    QPushButton *randlonglat;
-    QPushButton *inlonglat;
+    struct Station {
+        string name;
+        double latitude;
+        double longitude;
+    };
 
-public slots:
-    void inputLongLat();
-    void getLongLat();
+    void importStations(string fileName);
+    void importEdges(string fileName);
+    int findClosestStation(pair<double, double> loc);
+    string getStationName(int id);
+    vector<int> dijkstra(int src, int dest);
+    double distance(int src, int dest);
+    vector<int> aStar(int stc, int dest);
+
+private:
+    map<int, Station> stationID;
+    map<int, vector<pair<int, pair<string, double>>>> adjList;
+    // first -> int: "from" ID
+    // second -> vector
+    //           pair<int, pair>
+    //                "to" ID
+    //                      pair<string, double>
+    //                           string = Route Identifier
+    //                           double = distance (weight)
+
 };
