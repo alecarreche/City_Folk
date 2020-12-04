@@ -321,6 +321,9 @@ string Graph::convertVectorToString(vector<string> vs)
 
 string Graph::findSwitches(vector<int> vi)
 {
-
-
+    string s = "";
+    for (int i = 0; i < vi.size();)
+    {
+    }
+    return s;
 }
