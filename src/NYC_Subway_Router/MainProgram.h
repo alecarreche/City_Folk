@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -8,6 +7,7 @@
 #include <cmath>
 #include <unordered_set>
 #include <stack>
+#include <random>
 using namespace std;
 
 class Graph {
