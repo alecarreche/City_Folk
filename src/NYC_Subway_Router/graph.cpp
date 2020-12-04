@@ -1,5 +1,9 @@
 #include "graph.h"
 
+string Graph::getStationName(int id) {
+    return stationID[id].name;
+}
+
 void Graph::importStations(string fileName) {
     ifstream stations;
     stations.open(fileName);

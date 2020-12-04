@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <cmath>
 #include <unordered_set>
 #include <stack>
 using namespace std;
@@ -21,6 +22,7 @@ public:
     void importStations(string fileName);
     void importEdges(string fileName);
     int findClosestStation(pair<double, double> loc);
+    string getStationName(int id);
     vector<int> dijkstra(int src, int dest);
     double distance(int src, int dest);
     vector<int> aStar(int stc, int dest);
