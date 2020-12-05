@@ -365,7 +365,6 @@ string Graph::findSwitches(vector<int> vi)
                     s += "Take route ";
                     currentRoute = adjList[i][j].second.first;
                     s += adjList[i][j].second.first;
-                    s += ;
                     checker = true;
                 }
                 else if (currentRoute != adjList[i][j].second.first)
@@ -378,7 +377,6 @@ string Graph::findSwitches(vector<int> vi)
                         s += "Take route ";
                         currentRoute = adjList[vi[i]][j].second.first;
                         s += adjList[vi[i]][j].second.first;
-                        s += ;
                         s += " to your destination at station ";
                         s += stationID[adjList[vi[i]][j].first].name;
                         s += ".\n";
@@ -392,7 +390,6 @@ string Graph::findSwitches(vector<int> vi)
                         s += "Take route ";
                         currentRoute = adjList[vi[i]][j].second.first;
                         s += adjList[vi[i]][j].second.first;
-                        s += ;
                     }
                     checker = true;
                 }
