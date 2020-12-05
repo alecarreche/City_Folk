@@ -393,7 +393,7 @@ string Graph::findSwitches(vector<int> vi)
                     }
                     checker = true;
                 }
-                else if ((i + 1) == vi.size()-1)
+                else if ((i + 1) == vi.size() - 1)
                 {
                     s += " to your destination at station ";
                     s += stationID[adjList[vi[i]][j].first].name;
@@ -409,7 +409,8 @@ string Graph::findSwitches(vector<int> vi)
             j++;
             if (j == adjList[vi[i]].size())
             {
-                return "ERROR!!!!!!";
+                s += "ERROR!!!!!!"
+                return s;
             }
         }
         checker == false;
