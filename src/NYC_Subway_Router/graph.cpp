@@ -175,6 +175,19 @@ vector<int> Graph::dijkstra(int src, int dest)
             temp = newid;
             tempd = m[newid].second;
         }
+        if (m.find(src) == m.end() || m.find(dest) == m.end())
+        {
+            if (m.find(src) == m.end())
+            {
+                cout << "source was not found???" << endl;
+            }
+            if (m.find(dest) == m.end())
+            {
+                cout << "destination was not found..." << endl;
+            }
+            vector<int> v3;
+            return v3;
+        }
         vector<int> vec;
         stack<int> s;
         temp = dest;
@@ -279,6 +292,19 @@ vector<int> Graph::aStar(int src, int dest)
             }
         }
         currentid = newid;
+    }
+    if (m.find(src) == m.end() || m.find(dest) == m.end())
+    {
+        if (m.find(src) == m.end())
+        {
+            cout << "source was not found???" << endl;
+        }
+        if (m.find(dest) == m.end())
+        {
+            cout << "destination was not found..." << endl;
+        }
+        vector<int> v3;
+        return v3;
     }
     vector<int> vec;
     stack<int> s;
