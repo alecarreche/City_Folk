@@ -322,8 +322,75 @@ string Graph::convertVectorToString(vector<string> vs)
 string Graph::findSwitches(vector<int> vi)
 {
     string s = "";
-    for (int i = 0; i < vi.size();)
+    bool checker = false;
+    unsigned int j = 0;
+    string currentRoute = "";
+    for (int i = 0; i < vi.size() - 1; i++)
     {
+        while (checker != true)
+        {
+            if (adjList[vi[i]][j].first == vi[i + 1])
+            {
+                if (i == 0)
+                {
+                    s += "Start at ";
+                    s += stationID[vi[i]].name;
+                    s += " station.\n";
+                    s += "Take route ";
+                    currentRoute = adjList[i][j].second.first;
+                    s += adjList[i][j].second.first;
+                    s += ;
+                    checker = true;
+                }
+                else if (currentRoute != adjList[i][j].second.first)
+                {
+                    if ((i + 1) == vi.size())
+                    {
+                        s += " to station ";
+                        s += stationID[vi[i]].name;
+                        s += ".\n";
+                        s += "Take route ";
+                        currentRoute = adjList[vi[i]][j].second.first;
+                        s += adjList[vi[i]][j].second.first;
+                        s += ;
+                        s += " to your destination at station ";
+                        s += stationID[adjList[vi[i]][j].first].name;
+                        s += ".\n";
+                        s += "Thank you!";
+                    }
+                    else 
+                    {
+                        s += " to station ";
+                        s += stationID[vi[i]].name;
+                        s += ".\n";
+                        s += "Take route ";
+                        currentRoute = adjList[vi[i]][j].second.first;
+                        s += adjList[vi[i]][j].second.first;
+                        s += ;
+                    }
+                    checker = true;
+                }
+                else if ((i + 1) == vi.size())
+                {
+                    s += " to your destination at station ";
+                    s += stationID[adjList[vi[i]][j].first].name;
+                    s += ".\n";
+                    s += "Thank you!";
+                    checker = true;
+                }
+                else
+                {
+                    checker = true;
+                }
+            }
+            j++;
+            if (j == adjList[vi[i]].size())
+            {
+                return "ERROR!!!!!!";
+            }
+        }
+        checker == false;
+        j = 0;
     }
     return s;
 }
