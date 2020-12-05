@@ -363,11 +363,11 @@ string Graph::findSwitches(vector<int> vi)
                     s += stationID[vi[i]].name;
                     s += " station.\n";
                     s += "Take route ";
-                    currentRoute = adjList[i][j].second.first;
-                    s += adjList[i][j].second.first;
+                    currentRoute = adjList[vi[i]][j].second.first;
+                    s += adjList[vi[i]][j].second.first;
                     checker = true;
                 }
-                else if (currentRoute != adjList[i][j].second.first)
+                else if (currentRoute != adjList[vi[i]][j].second.first)
                 {
                     if ((i + 1) == vi.size()-1)
                     {
@@ -417,4 +417,19 @@ string Graph::findSwitches(vector<int> vi)
         j = 0;
     }
     return s;
+}
+
+
+void Graph::plotroute(vector<int> vi) {
+    ofstream file;
+    file.open("route.csv");
+    file << "Stop Name,Latitude,Longitude\n";
+    
+    for (int stop : vi) {
+        file << stationID[stop].name << ",";
+        file << stationID[stop].latitude << ",";
+        file << stationID[stop].longitude << "\n";
+    }
+
+    file.close();
 }

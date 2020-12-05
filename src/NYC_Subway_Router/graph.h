@@ -29,6 +29,7 @@ public:
     vector<string> getStationNameVector(vector<int> vi);
     string convertVectorToString(vector<string> vs);
     string findSwitches(vector<int> vi);
+    void plotroute(vector<int> vi);
 
 private:
     map<int, Station> stationID;
