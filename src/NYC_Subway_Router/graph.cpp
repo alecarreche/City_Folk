@@ -322,8 +322,60 @@ string Graph::convertVectorToString(vector<string> vs)
 string Graph::findSwitches(vector<int> vi)
 {
     string s = "";
-    for (int i = 0; i < vi.size();)
+    bool checker = false;
+    int j = 0;
+    string currentRoute = "";
+    for (int i = 0; i < vi.size(); i++)
     {
+        while (checker != true)
+        {
+            if (adjList[vi[i]][j].first == vi[i + 1])
+            {
+                if (i == 0)
+                {
+                    s += "Start at ";
+                    s += stationID[i].name;
+                    s += " station.\n";
+                    s += "Take route ";
+                    currentRoute = adjList[i][j].second.first;
+                    s += adjList[i][j].second.first;
+                    s += ;
+                    checker = true;
+                }
+                else if (currentRoute != adjList[i][j].second.first)
+                {
+                    if ((i + 1) == vi.size())
+                    {
+                        s += " to your destination at station ";
+                        s += stationID[adjList[i][j].first].name;
+                        s += ".\n";
+                        s += "Thank you!";
+                    }
+                    else 
+                    {
+                        s += " to station ";
+                        s += stationID[adjList[i][j].first].name;
+                        s += ".\n";
+                        s += "Take route ";
+                        currentRoute = adjList[i][j].second.first;
+                        s += adjList[i][j].second.first;
+                        s += ;
+                    }
+                    checker = true;
+                }
+                else
+                {
+                    checker = true;
+                }
+            }
+            j++;
+            if (j == 1000000)
+            {
+                return "ERROR!!!!!!";
+            }
+        }
+        checker == false;
+        j = 0;
     }
     return s;
 }
