@@ -369,7 +369,7 @@ string Graph::findSwitches(vector<int> vi)
                 }
                 else if (currentRoute != adjList[i][j].second.first)
                 {
-                    if ((i + 1) == vi.size())
+                    if ((i + 1) == vi.size()-1)
                     {
                         s += " to station ";
                         s += stationID[vi[i]].name;
@@ -393,7 +393,7 @@ string Graph::findSwitches(vector<int> vi)
                     }
                     checker = true;
                 }
-                else if ((i + 1) == vi.size())
+                else if ((i + 1) == vi.size()-1)
                 {
                     s += " to your destination at station ";
                     s += stationID[adjList[vi[i]][j].first].name;
