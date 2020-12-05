@@ -407,13 +407,13 @@ string Graph::findSwitches(vector<int> vi)
                 }
             }
             j++;
-            if (j == adjList[vi[i]].size())
+            if (j == adjList[vi[i]].size() + 1)
             {
-                s += "ERROR!!!!!!"
+                s += "ERROR!!!!!!";
                 return s;
             }
         }
-        checker == false;
+        checker = false;
         j = 0;
     }
     return s;
