@@ -19,7 +19,6 @@ class MainProgram : public QMainWindow {
     Q_OBJECT
 public:
     explicit MainProgram(QWidget *parent = nullptr);
-    vector<pair<pair<double, double>, pair<double, double>>> randlonglats;
     QPushButton *randlonglat, *inlonglat, *mapNY;
     Graph subway;
     string dspStations = "";
