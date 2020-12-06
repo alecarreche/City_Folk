@@ -97,17 +97,24 @@ vector<pair<pair<double, double>, pair<double, double>>> generateRandomLoc(int n
 
 void MainProgram::getLongLat(){
     this->close();
-    randlonglats = generateRandomLoc(100000, 40.561627, 40.917625, -74.045376, -73.740905);
+    randlonglats = generateRandomLoc(100, 40.561627, 40.917625, -74.045376, -73.740905);
 
     for (auto i : randlonglats){
         int src = subway.findClosestStation(make_pair(i.first.first, i.first.second));
         int dest = subway.findClosestStation(make_pair(i.second.first, i.second.second));
 
-        vector<int> dsp = subway.dijkstra(src, dest);
-        vector<int> asp = subway.aStar(src, dest);
+        auto startD = std::chrono::system_clock::now();
+            vector<int> dsp = subway.dijkstra(src, dest);
+        auto endD = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsD = endD-startD;
 
-        totalTimeSecsDijkstras = totalTimeSecsDijkstras + subway.dTime;
-        totalTimeSecsAstar = totalTimeSecsAstar + subway.aTime;
+        auto startA = std::chrono::system_clock::now();
+            vector<int> asp = subway.aStar(src, dest);
+        auto endA = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsA = endA-startA;
+
+        totalTimeSecsDijkstras = totalTimeSecsDijkstras + elapsed_secondsD.count();
+        totalTimeSecsAstar = totalTimeSecsAstar + elapsed_secondsA.count();
     }
     testProgram = true;
 }

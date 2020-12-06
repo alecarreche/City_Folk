@@ -116,7 +116,6 @@ int Graph::findClosestStation(pair<double, double> loc) {
 
 vector<int> Graph::dijkstra(int src, int dest)
 {
-    auto startD = std::chrono::system_clock::now();
     map<int, pair<int, double>> m;
     unordered_set<int> v;
     unordered_set<int> nv;
@@ -206,10 +205,6 @@ vector<int> Graph::dijkstra(int src, int dest)
         return vec;
     }
     vector<int> v2;
-    auto endD = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_secondsD = endD-startD;
-
-    dTime = elapsed_secondsD.count();
     return v2;
 }
 
@@ -228,7 +223,6 @@ double Graph::distance(int src, int dest)
 
 vector<int> Graph::aStar(int src, int dest)
 {
-    auto startA = std::chrono::system_clock::now();
     map<int, pair<double, pair<double, pair<double, int>>>> m;
 
     //m[ID]
@@ -310,11 +304,6 @@ vector<int> Graph::aStar(int src, int dest)
             cout << "destination was not found..." << endl;
         }
         vector<int> v3;
-
-        auto endA = std::chrono::system_clock::now();
-        std::chrono::duration<double> elapsed_secondsA = endA-startA;
-
-        aTime = elapsed_secondsA.count();
         return v3;
     }
     vector<int> vec;
@@ -331,11 +320,6 @@ vector<int> Graph::aStar(int src, int dest)
         vec.push_back(s.top());
         s.pop();
     }
-
-    auto endA = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_secondsA = endA-startA;
-
-    aTime = elapsed_secondsA.count();
     return vec;
 }
 
@@ -438,7 +422,7 @@ string Graph::findSwitches(vector<int> vi)
 
 void Graph::plotroute(vector<int> vi) {
     ofstream file;
-    file.open("/Users/annahampton/Documents/COP3530/City_Folk/data/route.csv");
+    file.open("route.csv");
     file << "Stop Name,Latitude,Longitude\n";
 
     for (int stop : vi) {
@@ -449,6 +433,6 @@ void Graph::plotroute(vector<int> vi) {
 
     file.close();
 
-    string command = "python3 /Users/annahampton/Documents/COP3530/City_Folk/src/NYC_Subway_Router/plotter.py";
+    string command = "python3 plotter.py";
     system(command.c_str());
 }
