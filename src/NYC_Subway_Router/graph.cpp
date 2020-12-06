@@ -449,6 +449,6 @@ void Graph::plotroute(vector<int> vi) {
 
     file.close();
 
-    string command = "python3 /Users/annahampton/Documents/COP3530/City_Folk/src/plotter.py";
+    string command = "python3 /Users/annahampton/Documents/COP3530/City_Folk/src/NYC_Subway_Router/plotter.py";
     system(command.c_str());
 }
