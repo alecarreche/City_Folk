@@ -116,6 +116,7 @@ int Graph::findClosestStation(pair<double, double> loc) {
 
 vector<int> Graph::dijkstra(int src, int dest)
 {
+    auto startD = std::chrono::system_clock::now();
     map<int, pair<int, double>> m;
     unordered_set<int> v;
     unordered_set<int> nv;
@@ -205,6 +206,10 @@ vector<int> Graph::dijkstra(int src, int dest)
         return vec;
     }
     vector<int> v2;
+    auto endD = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_secondsD = endD-startD;
+
+    dTime = elapsed_secondsD.count();
     return v2;
 }
 
@@ -223,6 +228,7 @@ double Graph::distance(int src, int dest)
 
 vector<int> Graph::aStar(int src, int dest)
 {
+    auto startA = std::chrono::system_clock::now();
     map<int, pair<double, pair<double, pair<double, int>>>> m;
 
     //m[ID]
@@ -304,6 +310,11 @@ vector<int> Graph::aStar(int src, int dest)
             cout << "destination was not found..." << endl;
         }
         vector<int> v3;
+
+        auto endA = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsA = endA-startA;
+
+        aTime = elapsed_secondsA.count();
         return v3;
     }
     vector<int> vec;
@@ -320,8 +331,14 @@ vector<int> Graph::aStar(int src, int dest)
         vec.push_back(s.top());
         s.pop();
     }
+
+    auto endA = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_secondsA = endA-startA;
+
+    aTime = elapsed_secondsA.count();
     return vec;
 }
+
 
 vector<string> Graph::getStationNameVector(vector<int> vi)
 {

@@ -26,6 +26,8 @@ public:
     vector<int> dijkstra(int src, int dest);
     double distance(int src, int dest);
     vector<int> aStar(int stc, int dest);
+    double dTime = 0;
+    double aTime = 0;
     vector<string> getStationNameVector(vector<int> vi);
     string convertVectorToString(vector<string> vs);
     string findSwitches(vector<int> vi);
