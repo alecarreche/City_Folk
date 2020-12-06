@@ -79,25 +79,9 @@ vector<pair<pair<double, double>, pair<double, double>>> generateRandomLoc(int n
     return result;
 }
 
-/*pair<double, double> MainProgram::getElapsedTime(int src, int dest){
-    auto startD = std::chrono::system_clock::now();
-        vector<int> dsp = subway.dijkstra(src, dest);
-    auto endD = std::chrono::system_clock::now();
-
-    auto startA = std::chrono::system_clock::now();
-        vector<int> asp = subway.aStar(src, dest);
-    auto endA = std::chrono::system_clock::now();
-
-    std::chrono::duration<double> elapsed_secondsD = endD-startD;
-    std::chrono::duration<double> elapsed_secondsA = endA-startA;
-
-    return make_pair(elapsed_secondsD.count(), elapsed_secondsA.count());
-}*/
-
-
 void MainProgram::getLongLat(){
     this->close();
-    randlonglats = generateRandomLoc(100, 40.561627, 40.917625, -74.045376, -73.740905);
+    randlonglats = generateRandomLoc(100000, 40.561627, 40.917625, -74.045376, -73.740905);
 
     for (auto i : randlonglats){
         int src = subway.findClosestStation(make_pair(i.first.first, i.first.second));
