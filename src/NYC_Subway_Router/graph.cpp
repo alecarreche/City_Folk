@@ -399,7 +399,7 @@ string Graph::findSwitches(vector<int> vi)
                         s += ".\n";
                         s += "Thank you!";
                     }
-                    else 
+                    else
                     {
                         s += " to station ";
                         s += stationID[vi[i]].name;
@@ -436,12 +436,11 @@ string Graph::findSwitches(vector<int> vi)
     return s;
 }
 
-
 void Graph::plotroute(vector<int> vi) {
     ofstream file;
-    file.open("route.csv");
+    file.open("/Users/annahampton/Documents/COP3530/City_Folk/data/route.csv");
     file << "Stop Name,Latitude,Longitude\n";
-    
+
     for (int stop : vi) {
         file << stationID[stop].name << ",";
         file << stationID[stop].latitude << ",";
@@ -450,6 +449,6 @@ void Graph::plotroute(vector<int> vi) {
 
     file.close();
 
-    string command = "python3 plotter.py";
+    string command = "python3 /Users/annahampton/Documents/COP3530/City_Folk/src/plotter.py";
     system(command.c_str());
 }

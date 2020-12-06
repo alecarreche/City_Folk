@@ -1,41 +1,35 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <map>
-#include <cmath>
-#include <unordered_set>
-#include <stack>
-#include <random>
+#include <QApplication>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QMainWindow>
+#include <QInputDialog>
+#include <QCloseEvent>
+#include <QStyle>
+#include <QDesktopWidget>
+#include <QBoxLayout>
+#include <QLabel>
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <chrono>
+#include "graph.h"
 using namespace std;
 
-class Graph {
-
+class MainProgram : public QMainWindow {
+    Q_OBJECT
 public:
-    struct Station {
-        string name;
-        double latitude;
-        double longitude;
-    };
+    explicit MainProgram(QWidget *parent = nullptr);
+    vector<pair<pair<double, double>, pair<double, double>>> randlonglats;
+    QPushButton *randlonglat, *inlonglat, *mapNY;
+    Graph subway;
+    string dspStations = "";
+    string aspStations = "";
+    bool testInput = false;
+    bool testProgram = false;
+    double totalTimeSecsDijkstras = 0;
+    double totalTimeSecsAstar = 0;
 
-    void importStations(string fileName);
-    void importEdges(string fileName);
-    int findClosestStation(pair<double, double> loc);
-    string getStationName(int id);
-    vector<int> dijkstra(int src, int dest);
-    double distance(int src, int dest);
-    vector<int> aStar(int stc, int dest);
-
-private:
-    map<int, Station> stationID;
-    map<int, vector<pair<int, pair<string, double>>>> adjList;
-    // first -> int: "from" ID
-    // second -> vector
-    //           pair<int, pair>
-    //                "to" ID
-    //                      pair<string, double>
-    //                           string = Route Identifier
-    //                           double = distance (weight)
-
+public slots:
+    void inputLongLat();
+    void getLongLat();
 };
