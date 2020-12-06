@@ -15,8 +15,8 @@ int main(int argc, char **argv){
     QWidget *ASP = new QWidget;
     DSP->setWindowTitle("Shortest Path");
     ASP->setWindowTitle("Shortest Path");
-    QLabel dijkstras("Dijkstra's: \n" + QString::fromStdString(win.dspStations));
-    QLabel astar("A*: \n" + QString::fromStdString(win.aspStations));
+    QLabel dijkstras("Dijkstra's: \n\n" + QString::fromStdString(win.dspStations));
+    QLabel astar("A*: \n\n" + QString::fromStdString(win.aspStations));
 
     QVBoxLayout *layoutD = new QVBoxLayout;
     layoutD->addWidget(&dijkstras);
@@ -33,11 +33,11 @@ int main(int argc, char **argv){
     }
 
     QWidget *analysis = new QWidget;
-    analysis->setWindowTitle("Computation Time for 100 locations");
+    analysis->setWindowTitle("Computation Time for 100,000 locations");
     QLabel dijkstras2(QString::fromStdString("Total time Dijskstra's: " + to_string(win.totalTimeSecsDijkstras) + "s"));
-    QLabel dijkstras3(QString::fromStdString("Average time per iteration Dijskstra's: " + to_string((win.totalTimeSecsDijkstras/100)) + "s"));
+    QLabel dijkstras3(QString::fromStdString("Average time per iteration Dijskstra's: " + to_string((win.totalTimeSecsDijkstras/100000)) + "s"));
     QLabel astar2(QString::fromStdString("Total time A*: " + to_string(win.totalTimeSecsAstar) + "s"));
-    QLabel astar3(QString::fromStdString("Average time per iteration A*: " + to_string((win.totalTimeSecsAstar/100)) + "s"));
+    QLabel astar3(QString::fromStdString("Average time per iteration A*: " + to_string((win.totalTimeSecsAstar/100000)) + "s"));
 
     QVBoxLayout *layout2 = new QVBoxLayout;
     layout2->addWidget(&dijkstras2);
