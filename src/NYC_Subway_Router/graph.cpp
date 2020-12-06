@@ -432,4 +432,7 @@ void Graph::plotroute(vector<int> vi) {
     }
 
     file.close();
+
+    string command = "python3 plotter.py";
+    system(command.c_str());
 }
